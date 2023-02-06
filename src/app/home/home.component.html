@@ -1,0 +1,137 @@
+<section class="slider-wrapper">
+    <div class="slider-start slider-2 owl-carousel owl-theme">
+        <div class="item" *ngFor="let newproduct of newproduct">
+            <img src="http://127.0.0.1:8000/storage/images/{{newproduct.image}}" style="width: 1920px; height: 844px ;" alt="">
+            <div class="container-fluid custom-container slider-content">
+                <div class="row align-items-center">
+                    <div class="col-12 col-sm-8 col-md-8 col-lg-6 ml-auto">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="main-product padding-120">
+    <div class="container container-two">
+        <div class="section-heading">
+            <h3>Sản phẩm <span>Thực phẩm chức năng</span></h3>
+        </div>
+        <!-- /.section-heading-->
+        <div class="row inner-wrapper">
+            <!-- Single product -->
+            <div class="col-sm-6 col-lg-3 col-xl-3" *ngFor="let functional_food of functional_food">
+                <div class="sin-product">
+                    <div class="pro-img">
+                        <img src="http://127.0.0.1:8000/storage/images/{{functional_food.image}}" alt="">
+                    </div>
+                    <div class="mid-wrapper">
+                        <h5 class="pro-title"><a [routerLink]="['/product_detail/',functional_food.id]">{{functional_food.name}}</a></h5>
+
+                    </div>
+                    <div class="mid-wrapper">
+
+                        <span>{{functional_food.export_price | currency:'VND'}} VND</span>
+                    </div>
+                    <div class="pro-icon">
+                        <ul>
+                            <li><a href="#"><i class="flaticon-valentines-heart"></i></a></li>
+                            <!-- <li> -->
+                            <button type="button" class="btn btn-outline-warning" (click)="addToCart(functional_food)"><i class="flaticon-shopping-cart"></i>
+                                </button>
+                            <!-- </li> -->
+                            <button type="button" class="btn btn-outline-warning" (click)="openModal(template,functional_food.id)"><i class="flaticon-eye"></i></button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row End -->
+    </div>
+    <!-- Container  -->
+</section>
+<section class="main-product padding-120">
+    <div class="container container-two">
+        <div class="section-heading">
+            <h3>Sản phẩm <span> chăm sóc da</span></h3>
+        </div>
+        <!-- /.section-heading-->
+        <div class="row inner-wrapper">
+            <!-- Single product -->
+            <div class="col-sm-6 col-lg-3 col-xl-3" *ngFor="let product6 of product6">
+                <div class="sin-product">
+                    <div class="pro-img">
+                        <img src="http://127.0.0.1:8000/storage/images/{{product6.image}}" alt="">
+                    </div>
+                    <div class="mid-wrapper">
+                        <h5 class="pro-title"><a [routerLink]="['/product_detail/',product6.id]">{{product6.name}}</a></h5>
+                    </div>
+                    <div class="mid-wrapper">
+                        <span>{{product6.export_price | currency:'VND'}} VND</span>
+                    </div>
+                    <div class="pro-icon">
+                        <ul>
+                            <li><a href="#"><i class="flaticon-valentines-heart"></i></a></li>
+                            <button type="button" class="btn btn-outline-warning" (click)="addToCart(product6)"><i class="flaticon-shopping-cart"></i></button>
+                            <button type="button" class="btn btn-outline-warning" (click)="openModal(template,product6.id)"><i class="flaticon-eye"></i></button>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row End -->
+    </div>
+    <!-- Container  -->
+</section>
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()"><i class="fas fa-window-close"></i>
+        </button>
+    </div>
+    <div class="quickview">
+        <div class="row">
+            <div class="col-12">
+
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()"></button>
+
+            </div>
+            <div class="col-md-6">
+                <!-- Product View Slider -->
+                <div class="quickview-slider">
+                    <div class="slider-for">
+                        <div class="">
+                            <img src="http://127.0.0.1:8000/storage/images/{{viewProduct.image}}" style="width:550 px;height: 594px;" alt="Thumb">
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.quickview-slider -->
+            </div>
+            <!-- /.col-xl-6 -->
+
+            <div class="col-md-6">
+                <div class="product-details">
+                    <h5 class="pro-title"><a href="#">{{viewProduct.name}}</a></h5>
+                    <span class="price">Price : {{viewProduct.export_price| currency:'VND'}}</span>
+                    <div class="add-tocart-wrap">
+                        <!--PRODUCT INCREASE BUTTON START-->
+                        <button class="custom-btn btn-11" (click)="addToCart(viewProduct)"><i class="flaticon-shopping-purse-icon" > </i>   Add to Cart</button>
+                        <!-- <a href="#"><i class="flaticon-valentines-heart"></i></a> -->
+                    </div>
+
+                    <!-- <span>SKU:	N/A</span>
+                            <p>Tags <a href="#">boys,</a><a href="#"> dress,</a><a href="#">Rok-dress</a></p> -->
+
+                    <p>{{viewProduct.description}}</p>
+
+
+                </div>
+                <!-- /.product-details -->
+            </div>
+            <!-- /.col-xl-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+</ng-template>

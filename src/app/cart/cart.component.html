@@ -1,0 +1,174 @@
+<section class="breadcrumb-area">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bc-inner">
+                    <p><a routerLink="/home">Trang chủ  |</a> Giỏ Hàng</p>
+                </div>
+            </div>
+            <!-- /.col-xl-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<!--=========================-->
+<!--=        Breadcrumb         =-->
+<!--=========================-->
+
+<section class="cart-area">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-xl-9">
+                <div class="cart-table">
+                    <table class="tables">
+                        <thead>
+                            <tr *ngIf="isEmpty==true">
+                                <th>
+                                    <p>Bạn chưa thêm gì vào giỏ hàng </p>
+                                </th>
+                            </tr>
+                            <tr *ngIf="isEmpty==false">
+                                <th></th>
+                                <th>Image</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá tiền</th>
+                                <th>Tổng tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let productInCart of productInCart  ">
+                                <td>
+                                    <button class="btn btn-danger" (click)="removeItem(productInCart)"><i class="fas fa-trash-alt"></i></button>
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        <div class="product-image">
+                                            <img alt="Stylexpo" src="http://127.0.0.1:8000/storage/images/{{productInCart.image}}" style="width:171px;height: 187px;">
+                                        </div>
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="product-title">
+                                        <a href="#">{{productInCart.name}}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="quantity">
+                                        <button type="submit" (click)="reduceQuantity(productInCart.id)" class="btn btn-outline-warning"><i class="fas fa-minus"></i></button>
+                                        <input type="number" value="{{productInCart.num}}">
+                                        <button type="submit" (click)="addQuantity(productInCart.id)" class="btn btn-outline-primary"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <div class="price-box">
+                                                <span class="price">{{productInCart.export_price | currency:'VND'}}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <div class="total-price-box">
+                                        <span class="price">{{productInCart.export_price * productInCart.num | currency:'VND'}}</span>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <!-- /.single product  -->
+                        </tbody>
+                    </table>
+                    <section class="contact-area">
+                        <div class="container-fluid custom-container">
+                            <div class="section-heading pb-30">
+                                <h3>Địa chỉ <span>Giao hàng</span></h3>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 col-lg-8 col-xl-6">
+                                    <div class="contact-form">
+                                        <form (ngSubmit)="addToCart()" [formGroup]="form">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <input type="text" placeholder="Name*">
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <input type="text" placeholder="Last Name*">
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <input type="email" placeholder="Email*" name="email" formControlName="email" [(ngModel)]="AddessForGuest.email">
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <input type="text" placeholder="Số Điện Thoại" name="phone" formControlName="phone" [(ngModel)]="AddessForGuest.phone">
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <input type="text" placeholder="Tỉnh - Thành Phố" name="province" formControlName="province" [(ngModel)]="AddessForGuest.province">
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <input type="text" placeholder="Quận - Huyện" name="district" formControlName="district" [(ngModel)]="AddessForGuest.district">
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <input type="text" placeholder="Xã-Phường" name="ward" formControlName="ward" [(ngModel)]="AddessForGuest.ward">
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <input type="text" placeholder="Địa chỉ cụ thể" name="Address_details" formControlName="Address_detail" [(ngModel)]="AddessForGuest.Address_details">
+                                                </div>
+                                                <div class="col-xl-12">
+                                                    <button class="custom-btn btn-11">Đặt Hàng</button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /.row end -->
+                        </div>
+                        <!-- /.container-fluid end -->
+                    </section>
+                </div>
+                <!-- /.cart-table -->
+                <!-- <div class="row cart-btn-section">
+                    <div class="col-12 col-sm-8 col-lg-6">
+                        <div class="cart-btn-left">
+                            <a class="coupon-code" href="#">Coupon Code</a>
+                            <a href="#">Apply Coupon</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-sm-4 col-lg-6">
+                        <div class="cart-btn-right">
+                            <a href="#">Update Cart</a>
+                        </div>
+                    </div>
+                    
+                </div> -->
+                <!-- /.row -->
+            </div>
+            <!-- /.col-xl-9 -->
+            <div class="col-xl-3">
+                <div class="cart-subtotal">
+                    <p> Tổng hóa đơn </p>
+                    <ul>
+                        <li><span>Tổng tiền</span>{{total_bill | currency:'VND'}}</li>
+                    </ul>
+
+                </div>
+                <!-- /.cart-subtotal -->
+
+
+            </div>
+            <!-- /.col-xl-3 -->
+        </div>
+    </div>
+</section>
+<!-- /.cart-area -->
+
+<!--=========================-->
+<!--=   Subscribe area      =-->
+<!--=========================-->

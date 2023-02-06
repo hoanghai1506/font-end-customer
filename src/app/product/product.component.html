@@ -1,0 +1,166 @@
+<section class="breadcrumb-area">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bc-inner">
+                    <p><a routerLink="/home">Home  |</a> Sản Phẩm </p>
+                </div>
+            </div>
+            <!-- /.col-xl-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<section class="shop-area">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="order-2 order-lg-1 col-lg-3 col-xl-3">
+                <div class=" shop-sidebar left-side">
+                    <div class="sidebar-widget sidebar-search">
+                        <input type="text" name="filter" [(ngModel)]="term" placeholder="Search Product....">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-xl-3 -->
+            <div class="order-1 order-lg-2 col-lg-9 col-xl-9">
+                <div class="shop-sorting-area row">
+                    <div class="col-4 col-sm-4 col-md-6">
+                        <ul class="nav nav-tabs shop-btn" id="myTab" role="tablist">
+                            <li class="nav-item ">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><i class="flaticon-menu"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false"><i class="flaticon-list"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.col-->
+                    <div class="col-12 col-sm-8 col-md-6">
+                        <div class="sort-by">
+                            <span>Sort by :</span>
+                            <select class="orderby" name="orderby">
+                        <option value="menu_order">Default sorting</option>
+                        <option value="popularity">Sort by popularity</option>
+                        <option value="rating">Sort by average rating</option>
+                        <option value="date">Sort by newness</option>
+                        <option selected="selected">Best Selling</option>
+                    </select>
+                        </div>
+                    </div>
+                    <!-- /.col-->
+                </div>
+                <!-- /.shop-sorting-area -->
+                <div class="shop-content">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+
+                                <div class="col-sm-6 col-xl-4" *ngFor="let product of product |filter:term | paginate: {
+                                    itemsPerPage: tablesize,
+                                    currentPage: page,
+                                    totalItems: count};">
+                                    <div class="sin-product style-two">
+                                        <div class="pro-img">
+                                            <a [routerLink]="['/product_detail/',product.id]">
+
+                                                <img src="http://127.0.0.1:8000/storage/images/{{product.image}}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="mid-wrapper">
+                                            <h5 class="pro-title"><a [routerLink]="['/product_detail/',product.id]">{{product.name}}</a></h5>
+                                            <p><span>{{product.export_price | currency :'VND'}}></span>span</p>
+                                        </div>
+                                        <div class="icon-wrapper">
+                                            <div class="pro-icon">
+                                                <ul>
+                                                    <li><a href="#"><i class="flaticon-valentines-heart"></i></a></li>
+                                                    <li><a href="#"><i class="flaticon-compare"></i></a></li>
+                                                    <li><button class="btn btn-outline-warning" (click)="openModal(template,product.id)"><i class="flaticon-eye"></i></button></li>
+                                                </ul>
+                                            </div>
+                                            <div class="add-to-cart">
+                                                <button type="submit" class="btn btn-outline-warning" (click)="addToCart(product)">add to cart </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- /.sin-product -->
+
+                                </div>
+                                <!-- /.col- -->
+
+                            </div>
+                            <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+
+                            </pagination-controls>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.tab-pane-->
+
+                    </div>
+                    <!-- /.tab-content -->
+
+                    <!-- /.load-more-wrapper -->
+
+                </div>
+                <!-- /.shop-content -->
+            </div>
+            <!-- /.col- -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<ng-template #template>
+    <div class="modal-header">
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()"><i class="fas fa-window-close"></i>
+        </button>
+    </div>
+    <div class="quickview">
+        <div class="row">
+            <div class="col-12">
+
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()"></button>
+
+            </div>
+            <div class="col-md-6">
+                <!-- Product View Slider -->
+                <div class="quickview-slider">
+                    <div class="slider-for">
+                        <div class="">
+                            <img src="http://127.0.0.1:8000/storage/images/{{viewProduct.image}}" style="width:550 px;height: 594px;" alt="Thumb">
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.quickview-slider -->
+            </div>
+            <!-- /.col-xl-6 -->
+
+            <div class="col-md-6">
+                <div class="product-details">
+                    <h5 class="pro-title"><a href="#">{{viewProduct.name}}</a></h5>
+                    <span class="price">Price : {{viewProduct.export_price| currency:'VND'}}</span>
+                    <div class="add-tocart-wrap">
+                        <!--PRODUCT INCREASE BUTTON START-->
+                        <button class="custom-btn btn-11" (click)="addToCart(viewProduct)"><i class="flaticon-shopping-purse-icon" > </i>   Add to Cart</button>
+                        <!-- <a href="#"><i class="flaticon-valentines-heart"></i></a> -->
+                    </div>
+
+                    <!-- <span>SKU:	N/A</span>
+                            <p>Tags <a href="#">boys,</a><a href="#"> dress,</a><a href="#">Rok-dress</a></p> -->
+
+                    <p>{{viewProduct.description}}</p>
+
+
+                </div>
+                <!-- /.product-details -->
+            </div>
+            <!-- /.col-xl-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+</ng-template>

@@ -1,0 +1,89 @@
+<section class="breadcrumb-area">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="bc-inner">
+                    <p><a href="#">Home  |</a> Shop</p>
+                </div>
+            </div>
+            <!-- /.col-xl-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<!--=========================-->
+<!--=        Breadcrumb         =-->
+<!--=========================-->
+
+<section class="account-area">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-xl-3">
+                <div class="account-details">
+                    <p>Tài Khoản</p>
+                    <ul>
+                        <li>{{userName}}</li>
+                        <li>{{email}}</li>
+                        <li>phone</li>
+                        <li>1652</li>
+                    </ul>
+                </div>
+                <!-- /.cart-subtotal -->
+            </div>
+            <!-- /.col-xl-3 -->
+            <div class="col-xl-9">
+                <div class="account-table">
+                    <h6>Order History</h6>
+                    <table class="tables">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Date</th>
+                                <th>Fulfillment Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cartHitory of cartHitory">
+                                <td>
+                                    <a href="#">{{cartHitory.id}}</a>
+                                </td>
+
+                                <td>
+                                    {{cartHitory.created_at | date:'dd/MM/yyyy'}}
+                                </td>
+                                <td *ngIf="cartHitory.status==0"> đang đợi xét duyệt</td>
+                                <td *ngIf="cartHitory.status==1">đã xét duyệt</td>
+                                <td *ngIf="cartHitory.status==2">đang hủy</td>
+                                <td *ngIf="cartHitory.status==3">đã giao hàng</td>
+                                <td>
+                                    {{cartHitory.Total_bill |currency:'VND'}}
+                                </td>
+
+                            </tr>
+                            <!-- /.single product  -->
+                        </tbody>
+                    </table>
+
+                </div>
+                <!-- /.cart-table -->
+            </div>
+            <!-- /.col-xl-9 -->
+
+        </div>
+    </div>
+</section>
+<!-- /.cart-area -->
+
+<!--=========================-->
+<!--=   Subscribe area      =-->
+<!--=========================-->
+
+
+<!-- subscribe-area -->
+
+<!--=========================-->
+<!--=   Footer area      =-->
+<!--=========================-->
